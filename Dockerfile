@@ -25,18 +25,14 @@ RUN pip3 install \
    pytest \
    pytest-cov 
 
-RUN locale-gen en_US.UTF-8
-RUN update-locale LANG=en_US.UTF-8
+RUN locale-gen en_US.UTF-8 && update-locale LANG=en_US.UTF-8
+RUN git lfs install
 
 ARG uid
+ARG gid
 ARG user
-RUN useradd -m -N --gid 0 --shell /bin/bash --uid ${uid} ${user}
-
-RUN mkdir /u1
-RUN mkdir /afs
-RUN mkdir /myhome
+RUN groupadd -g ${gid} -o ${user}
+RUN useradd -m -N --gid ${gid} --shell /bin/bash --uid ${uid} ${user}
 
 USER ${user}
-WORKDIR /u1/${user}
-
-RUN git lfs install
+WORKDIR /home/${user}
