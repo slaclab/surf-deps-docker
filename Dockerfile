@@ -20,6 +20,7 @@ RUN pip3 install \
    cocotb \
    cocotbext-axi \
    cocotb-test \
+   cocotb-bus \
    coverage \
    pytest \
    pytest-cov 
